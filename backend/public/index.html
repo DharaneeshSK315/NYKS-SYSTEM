@@ -118,6 +118,21 @@
                 alert('Connection Error: Could not reach the server. Please ensure the backend is running.');
             }
         }
+        // Detect WebView (WebIntoApp)
+        document.addEventListener("DOMContentLoaded", () => {
+            const isWebView = /(wv|Build\/|Android.*Version\/)/.test(navigator.userAgent);
+            if (isWebView) {
+                const gButtonContainer = document.querySelector('.g_id_signin');
+                if (gButtonContainer) {
+                    const warning = document.createElement('p');
+                    warning.style.color = '#ffcc00';
+                    warning.style.fontSize = '12px';
+                    warning.style.marginTop = '10px';
+                    warning.innerText = "⚠️ Google Sign-In is blocked in WebView apps for security. Please use Username/Password.";
+                    gButtonContainer.parentNode.insertBefore(warning, gButtonContainer.nextSibling);
+                }
+            }
+        });
     </script>
 </body>
 </html>

@@ -152,33 +152,62 @@
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 } });
                 video.srcObject = stream;
             } catch (err) {
-                alert("Camera access failed. Check permissions.");
+                console.warn("Camera access failed, showing fallback.", err);
+                // Fallback for WebIntoApp or WebViews that block getUserMedia
+                document.getElementById('camera-box').innerHTML = `
+                    <div style="padding: 30px; background: #fff; border-radius: 10px; text-align: center;">
+                        <p style="color: #d32f2f; margin-bottom: 15px;">Live Camera Blocked by App.</p>
+                        <p style="margin-bottom: 15px; color: #555;">Please take a photo using your device camera instead:</p>
+                        <input type="file" accept="image/*" capture="user" id="fallback-camera-input" style="display: block; margin: 0 auto;">
+                    </div>
+                `;
+                
+                document.getElementById('fallback-camera-input').addEventListener('change', function(e) {
+                    if (e.target.files && e.target.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            capturePreview.src = event.target.result;
+                            capturePreview.style.display = 'block';
+                            verifyBtn.innerText = "Verify Match with Photo";
+                            // Set a dummy video width so the verify logic doesn't exit early
+                            Object.defineProperty(video, 'videoWidth', { value: 1 });
+                        }
+                        reader.readAsDataURL(e.target.files[0]);
+                    }
+                });
             }
         }
 
         verifyBtn.onclick = async () => {
-            if (video.videoWidth === 0) return alert("Camera not ready.");
+            let imageData;
+            // If the live camera was blocked but a photo was uploaded via fallback
+            if (capturePreview.src && capturePreview.src.startsWith('data:image')) {
+                imageData = capturePreview.src;
+            } else {
+                if (video.videoWidth === 0) return alert("Camera not ready.");
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.translate(canvas.width, 0); ctx.scale(-1, 1);
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                imageData = canvas.toDataURL('image/jpeg', 0.9);
+                capturePreview.src = imageData;
+                capturePreview.style.display = 'block';
+            }
+            
             verifyBtn.disabled = true;
             verifyBtn.innerText = "Analyzing Face...";
-            
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.translate(canvas.width, 0); ctx.scale(-1, 1);
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
-            const imageData = canvas.toDataURL('image/jpeg', 0.9);
-            capturePreview.src = imageData;
-            capturePreview.style.display = 'block';
 
             let coords = { latitude: null, longitude: null };
             try {
                 const pos = await new Promise((resolve, reject) => {
-                    navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true });
+                    navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 10000 });
                 });
                 coords = pos.coords;
-            } catch (err) { console.warn("GPS failed"); }
+            } catch (err) { console.warn("GPS failed", err); }
             
             try {
                 const response = await fetch('/api/face/compare', {

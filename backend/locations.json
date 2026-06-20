@@ -1,0 +1,30 @@
+[
+  {
+    "id": "loc1",
+    "name": "Dharmapuri Office",
+    "lat": 11.6809,
+    "lng": 78.1777,
+    "radius": 100
+  },
+  {
+    "id": "loc2",
+    "name": "Salem Office",
+    "lat": 11.6643,
+    "lng": 78.146,
+    "radius": 100
+  },
+  {
+    "id": "1781934962142",
+    "name": "Bannari amman institute of technology",
+    "lat": 42.365978,
+    "lng": -71.097038,
+    "radius": 500
+  },
+  {
+    "id": "1781935190544",
+    "name": "EEE seminar Hall",
+    "lat": 11.495392,
+    "lng": 77.27687,
+    "radius": 200
+  }
+]
