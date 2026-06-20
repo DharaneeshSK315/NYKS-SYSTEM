@@ -5,179 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NYKS Attendance & Monitoring System</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root {
-            --primary: #0D47A1;
-            --secondary: #1A237E;
-            --accent: #01579B;
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        body {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--secondary), var(--primary), var(--accent));
-            overflow: hidden;
-            color: var(--white);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 450px;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .header {
-            margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        .logo-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            display: inline-block;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        p.welcome {
-            font-size: 16px;
-            opacity: 0.8;
-            font-weight: 300;
-        }
-
-        .login-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.1);
-            border-color: white;
-        }
-
-        .forgot-pass {
-            display: block;
-            text-align: right;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            margin-bottom: 25px;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 16px;
-            border-radius: 12px;
-            border: none;
-            background: white;
-            color: var(--primary);
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .divider {
-            margin: 25px 0;
-            display: flex;
-            align-items: center;
-            opacity: 0.3;
-        }
-
-        .divider::before, .divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: white;
-        }
-
-        .divider span {
-            padding: 0 15px;
-            font-size: 12px;
-        }
-
-        .btn-google {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: transparent;
-            color: white;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-google:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .google-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        :root { --primary: #0D47A1; --secondary: #1A237E; --accent: #01579B; --white: #ffffff; --glass: rgba(255, 255, 255, 0.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--secondary), var(--primary), var(--accent)); overflow: hidden; color: var(--white); }
+        .container { width: 100%; max-width: 450px; padding: 40px; text-align: center; }
+        .header { margin-bottom: 40px; animation: fadeInDown 0.8s ease-out; }
+        .logo-icon { font-size: 60px; margin-bottom: 20px; display: inline-block; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+        h1 { font-size: 24px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .login-card { background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 24px; padding: 35px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2); animation: fadeInUp 1s ease-out; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        input { width: 100%; padding: 15px 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05); color: white; font-size: 16px; transition: all 0.3s; }
+        .btn-login { width: 100%; padding: 16px; border-radius: 12px; border: none; background: white; color: var(--primary); font-size: 18px; font-weight: 700; cursor: pointer; transition: transform 0.2s; }
+        .divider { margin: 25px 0; display: flex; align-items: center; opacity: 0.3; }
+        .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: white; }
+        .divider span { padding: 0 15px; font-size: 12px; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -185,7 +30,6 @@
         <div class="header">
             <span class="logo-icon">🛡️</span>
             <h1>NYKS Nationwide Digital Attendance & Monitoring System</h1>
-            <p class="welcome">Hi, Welcome Back!</p>
         </div>
 
         <div class="login-card">
@@ -195,19 +39,104 @@
             <div class="input-group">
                 <input type="password" placeholder="Password" id="password">
             </div>
-            <a href="#" class="forgot-pass">Forgot Password?</a>
-            
-            <button class="btn-login">Login</button>
+            <button class="btn-login" onclick="handleLogin()">Login</button>
 
-            <div class="divider">
-                <span>OR</span>
+            <div class="divider"><span>OR</span></div>
+
+            <!-- REAL GOOGLE BUTTON -->
+            <div id="g_id_onload"
+                 data-client_id="696088999669-btgqsi7gl0l8cvpjjkdajgg537gaqdc7.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
             </div>
-
-            <button class="btn-google">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="google-icon">
-                Sign in with Google
-            </button>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="outline"
+                 data-text="signin_with"
+                 data-size="large"
+                 data-logo_alignment="left">
+            </div>
         </div>
     </div>
+
+    <script>
+        const API_BASE = window.location.hostname.endsWith('github.io') 
+            ? 'https://nyks-system.onrender.com' 
+            : '';
+
+        async function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            
+            try {
+                const res = await fetch(API_BASE + '/api/auth/google', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idToken: response.credential })
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    alert('Google Sign-In Successful!');
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    location.href = 'dashboard.html';
+                } else {
+                    alert('Google Login Failed: ' + data.message);
+                }
+            } catch (err) {
+                alert('Error connecting to authentication server');
+            }
+        }
+
+        async function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                return alert("Please enter both username and password");
+            }
+
+            try {
+                const response = await fetch(API_BASE + '/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.status === 404) {
+                    return alert("Login endpoint not found. Please check server status.");
+                }
+
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    localStorage.setItem('token', data.token);
+                    location.href = 'dashboard.html';
+                } else {
+                    alert('Login Failed: ' + (data.message || "Invalid Credentials"));
+                }
+            } catch (err) {
+                console.error("Login error:", err);
+                alert('Connection Error: Could not reach the server. Please ensure the backend is running.');
+            }
+        }
+        // Detect WebView (WebIntoApp)
+        document.addEventListener("DOMContentLoaded", () => {
+            const isWebView = /(wv|Build\/|Android.*Version\/)/.test(navigator.userAgent);
+            if (isWebView) {
+                const gButtonContainer = document.querySelector('.g_id_signin');
+                if (gButtonContainer) {
+                    const warning = document.createElement('p');
+                    warning.style.color = '#ffcc00';
+                    warning.style.fontSize = '12px';
+                    warning.style.marginTop = '10px';
+                    warning.innerText = "⚠️ Google Sign-In is blocked in WebView apps for security. Please use Username/Password.";
+                    gButtonContainer.parentNode.insertBefore(warning, gButtonContainer.nextSibling);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
