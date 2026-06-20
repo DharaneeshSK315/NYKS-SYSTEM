@@ -40,6 +40,26 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _handleGoogleLogin() async {
+    setState(() => _isLoading = true);
+    try {
+      final success = await context.read<AuthService>().loginWithGoogle();
+      if (success && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Google Login Successful!'), backgroundColor: Colors.green),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildGoogleButton() {
     return OutlinedButton.icon(
-      onPressed: () {},
+      onPressed: _isLoading ? null : _handleGoogleLogin,
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(double.infinity, 55),
         side: const BorderSide(color: Colors.white24),
