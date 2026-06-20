@@ -45,7 +45,10 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    serverClientId: '696088999669-btgqsi7gl0l8cvpjjkdajgg537gaqdc7.apps.googleusercontent.com',
+    scopes: ['email'],
+  );
 
   Future<bool> loginWithGoogle() async {
     try {
