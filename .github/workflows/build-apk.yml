@@ -37,11 +37,6 @@ jobs:
           flutter create .
           sed -i '/<application/i \    <uses-permission android:name="android.permission.CAMERA"/>\n    <uses-permission android:name="android.permission.INTERNET"/>' android/app/src/main/AndroidManifest.xml
 
-      - name: Setup Custom Debug Keystore
-        run: |
-          mkdir -p ~/.android
-          cp debug.keystore ~/.android/debug.keystore
-
       - name: Build APK
         run: flutter build apk --release
         
